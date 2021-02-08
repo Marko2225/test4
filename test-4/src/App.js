@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { getAllLaunches, getLaunchById,getRockets } from './service'
 
 const Launches = ({ name, avatar, date , rocket}) => {
+  
   return (
       <div onClick={()=>{
          <p>{rocket}</p>
@@ -50,7 +51,9 @@ useEffect(() => {
       <h1>pocetak</h1>
       <select onChange={(e) => {
             setSelect(e.target.value)
+            console.log(select)
         }} >
+        
             <option value={launches.length}>All</option>
             <option value={10}>10</option>
             <option value={20}>20</option>
@@ -58,12 +61,18 @@ useEffect(() => {
         </select>
   {/* {launches.map(launch => <img src={launch.links.patch.small}/> )}
         <p>{launch.name}</p> */}
-        
-        {launches.map(launch => <Launches key={launch.id
+          {launches.slice(0, select).map(launch => <Launches key={launch.id
         } name={launch.name} 
         avatar={launch.links.patch.small} 
         date={launch.static_fire_date_unix}
        rocket={launch.rocket}/>)}
+       
+        
+        {/* {launches.map(launch => <Launches key={launch.id
+        } name={launch.name} 
+        avatar={launch.links.patch.small} 
+        date={launch.static_fire_date_unix}
+       rocket={launch.rocket}/>)} */}
 
         <button onClick={() => {
                 getLaunchById(launches[0].id).then(res =>{
